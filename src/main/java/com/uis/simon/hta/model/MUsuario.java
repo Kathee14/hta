@@ -1,196 +1,141 @@
-package com.uis.simon.hta.entity;
+package com.uis.simon.hta.model;
 
-import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
+import com.uis.simon.hta.entity.Usuario;
 
-@Entity
-@Table(name="usuario")
-public class Usuario implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
-		
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+public class MUsuario {
+	 
 	private Long id;
-	
-	@Column(name="nombre")
 	private String nombre;
-	
-	@Column(name="apellido")
 	private String apellido;
-	
-	@Column(length=60, unique= true)
 	private String username;
-
-	@Column(name="tipo_doc")
 	private String tipo_doc;
-	
-	@Column(name="n_doc")
 	private String n_doc;
-	
-	@Column(name="fec_nac")
 	private Date fec_nac;
-	
-	@Column(name="ciudad")
 	private String ciudad;
-	
-	@Column(name="direccion")
 	private String direccion;
-	
-	@Column(name="barrio")
 	private String barrio;
-	
-	private String password;
-	
-	@Column(name="sexo")
-	private String sexo;
-	
-	@Column(length=60)
+	private String sexo;	
 	private String email;
-	
-	@Column(name="celular")
 	private Long celular;
 	
-	@Column(name= "create_at")
-	@Temporal(TemporalType.DATE)
-	private Date createAt;
-	
-	@PrePersist
-	public void prePersist() {
-		createAt = new Date();
+	public MUsuario() {
+		
 	}
-
+	
+	public MUsuario(Long id, String nombre, String apellido, String username, String tipo_doc, String n_doc,
+			Date fec_nac, String ciudad, String direccion, String barrio, String password, String sexo, String email,
+			Long celular) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.username = username;
+		this.tipo_doc = tipo_doc;
+		this.n_doc = n_doc;
+		this.fec_nac = fec_nac;
+		this.ciudad = ciudad;
+		this.direccion = direccion;
+		this.barrio = barrio;
+		this.sexo = sexo;
+		this.email = email;
+		this.celular = celular;
+	}
+	
+	public MUsuario(Usuario usuario) {
+		this.id = usuario.getId();
+		this.nombre = usuario.getNombre();
+		this.apellido = usuario.getApellido();
+		this.username = usuario.getUsername();
+		this.tipo_doc = usuario.getTipo_doc();
+		this.n_doc = usuario.getN_doc();
+		this.fec_nac = usuario.getFec_nac();
+		this.ciudad = usuario.getCiudad();
+		this.direccion = usuario.getDireccion();
+		this.barrio = usuario.getBarrio();
+		this.sexo = usuario.getSexo();
+		this.email = usuario.getEmail();
+		this.celular = usuario.getCelular();
+	}
+	
+	
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public String getNombre() {
 		return nombre;
 	}
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 	public String getApellido() {
 		return apellido;
 	}
-
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
-
 	public String getUsername() {
 		return username;
 	}
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
 	public String getTipo_doc() {
 		return tipo_doc;
 	}
-
 	public void setTipo_doc(String tipo_doc) {
 		this.tipo_doc = tipo_doc;
 	}
-
 	public String getN_doc() {
 		return n_doc;
 	}
-
 	public void setN_doc(String n_doc) {
 		this.n_doc = n_doc;
 	}
-
 	public Date getFec_nac() {
 		return fec_nac;
 	}
-
 	public void setFec_nac(Date fec_nac) {
 		this.fec_nac = fec_nac;
 	}
-
 	public String getCiudad() {
 		return ciudad;
 	}
-
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
 	}
-
 	public String getDireccion() {
 		return direccion;
 	}
-
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-
 	public String getBarrio() {
 		return barrio;
 	}
-
 	public void setBarrio(String barrio) {
 		this.barrio = barrio;
 	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String getSexo() {
 		return sexo;
 	}
-
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
-
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public Long getCelular() {
 		return celular;
 	}
-
 	public void setCelular(Long celular) {
 		this.celular = celular;
-	}
-
-	public Date getCreateAt() {
-		return createAt;
-	}
-
-	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
-	}
-	
+	}	
 }
-
-
-
