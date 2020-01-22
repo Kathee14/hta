@@ -1,6 +1,7 @@
 package com.uis.simon.hta.controller;
 
-import java.util.ArrayList;
+
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uis.simon.hta.entity.Usuario;
-import com.uis.simon.hta.mapper.Mapper;
-import com.uis.simon.hta.model.MUsuario;
+import com.uis.simon.hta.model.JwtUser;
+import com.uis.simon.hta.security.JwtGenerator;
 import com.uis.simon.hta.service.IUsuarioService;
 
 @RestController
@@ -27,6 +28,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private IUsuarioService usuarioService;
+	
+	@Autowired
+	private JwtGenerator jwtGenerator;
 
 	@GetMapping("/usuarios")
 	@ResponseStatus(HttpStatus.OK)
@@ -46,10 +50,15 @@ public class UsuarioController {
 
 
 	@PostMapping("/sign_up")
-	public ResponseEntity<Void> addUsuario(@RequestBody Usuario usuario){
+	public ResponseEntity<?> addUsuario(@RequestBody Usuario usuario){
 		if(usuarioService.findUsuario(usuario)==null) {
 			usuarioService.save(usuario);
-			return new ResponseEntity<Void>(HttpStatus.CREATED);
+			Usuario userDb = usuarioService.checkUsuarioLogin(usuario);
+			JwtUser jwtUser = new JwtUser();
+			jwtUser.setId(userDb.getId());
+			jwtUser.setUsername(userDb.getUsername());
+			return new ResponseEntity<>((Collections.singletonMap("jwtToken", jwtGenerator.generate(jwtUser))),HttpStatus.CREATED);
+			
 		} else {
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
@@ -73,11 +82,10 @@ public class UsuarioController {
 	public ResponseEntity<?> loginUsuario(@RequestBody Usuario usuario){
 		Usuario usuarioDb = usuarioService.checkUsuarioLogin(usuario);
 		if(usuarioDb != null) {
-			List<Usuario> usuarios=new ArrayList<>();
-			usuarios.add(usuarioDb);
-			List<MUsuario> mUsuario = new ArrayList<>();
-			mUsuario = Mapper.convertirLista(usuarios);
-			return new ResponseEntity<>(mUsuario, HttpStatus.OK);
+			JwtUser jwtUser = new JwtUser();
+			jwtUser.setId(usuarioDb.getId());
+			jwtUser.setUsername(usuarioDb.getUsername());
+			return new ResponseEntity<>((Collections.singletonMap("jwtToken", jwtGenerator.generate(jwtUser))),HttpStatus.OK);
 		}else {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
