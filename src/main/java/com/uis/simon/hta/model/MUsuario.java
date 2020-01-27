@@ -9,9 +9,8 @@ public class MUsuario {
 	private Long id;
 	private String nombre;
 	private String apellido;
-	private String username;
 	private String tipo_doc;
-	private String n_doc;
+	private String cc;
 	private Date fec_nac;
 	private String ciudad;
 	private String direccion;
@@ -24,16 +23,15 @@ public class MUsuario {
 		
 	}
 	
-	public MUsuario(Long id, String nombre, String apellido, String username, String tipo_doc, String n_doc,
+	public MUsuario(Long id, String nombre, String apellido, String username, String tipo_doc, String cc,
 			Date fec_nac, String ciudad, String direccion, String barrio, String password, String sexo, String email,
 			Long celular) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.username = username;
 		this.tipo_doc = tipo_doc;
-		this.n_doc = n_doc;
+		this.cc = cc;
 		this.fec_nac = fec_nac;
 		this.ciudad = ciudad;
 		this.direccion = direccion;
@@ -47,9 +45,8 @@ public class MUsuario {
 		this.id = usuario.getId();
 		this.nombre = usuario.getNombre();
 		this.apellido = usuario.getApellido();
-		this.username = usuario.getUsername();
 		this.tipo_doc = usuario.getTipo_doc();
-		this.n_doc = usuario.getN_doc();
+		this.cc = usuario.getCc();
 		this.fec_nac = usuario.getFec_nac();
 		this.ciudad = usuario.getCiudad();
 		this.direccion = usuario.getDireccion();
@@ -78,24 +75,23 @@ public class MUsuario {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
+	
 	public String getTipo_doc() {
 		return tipo_doc;
 	}
 	public void setTipo_doc(String tipo_doc) {
 		this.tipo_doc = tipo_doc;
 	}
-	public String getN_doc() {
-		return n_doc;
+	
+	
+	public String getCc() {
+		return cc;
 	}
-	public void setN_doc(String n_doc) {
-		this.n_doc = n_doc;
+
+	public void setCc(String cc) {
+		this.cc = cc;
 	}
+
 	public Date getFec_nac() {
 		return fec_nac;
 	}

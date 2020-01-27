@@ -9,13 +9,13 @@ public class JwtUserDetails implements UserDetails {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private String username;
+	private String cc;
 	private String token;
 	private Long id;
 	
-	public JwtUserDetails(String username, Long id, String token) {
+	public JwtUserDetails(String cc, Long id, String token) {
 		super();
-		this.username = username;
+		this.cc = cc;
 		this.id = id;
 		this.token = token;
 	}
@@ -32,10 +32,9 @@ public class JwtUserDetails implements UserDetails {
 		return null;
 	}
 
-	@Override
-	public String getUsername() {
+	public String getCc() {
 		// TODO Auto-generated method stub
-		return username;
+		return cc;
 	}
 
 	@Override
@@ -60,6 +59,12 @@ public class JwtUserDetails implements UserDetails {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

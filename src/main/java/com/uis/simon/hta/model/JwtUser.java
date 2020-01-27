@@ -2,13 +2,14 @@ package com.uis.simon.hta.model;
 
 public class JwtUser {
 
-	private String Username;
+	private String Cc;
 	private Long id;
-	public String getUsername() {
-		return Username;
+
+	public String getCc() {
+		return Cc;
 	}
-	public void setUsername(String username) {
-		Username = username;
+	public void setCc(String cc) {
+		Cc = cc;
 	}
 	public Long getId() {
 		return id;

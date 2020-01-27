@@ -29,14 +29,11 @@ public class Usuario implements Serializable {
 	@Column(name="apellido")
 	private String apellido;
 	
-	@Column(length=60, unique= true)
-	private String username;
-
 	@Column(name="tipo_doc")
 	private String tipo_doc;
 	
-	@Column(name="n_doc")
-	private String n_doc;
+	@Column(name="cc", unique=true)
+	private String cc;
 	
 	@Column(name="fec_nac")
 	private Date fec_nac;
@@ -94,14 +91,6 @@ public class Usuario implements Serializable {
 		this.apellido = apellido;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 	public String getTipo_doc() {
 		return tipo_doc;
 	}
@@ -110,12 +99,12 @@ public class Usuario implements Serializable {
 		this.tipo_doc = tipo_doc;
 	}
 
-	public String getN_doc() {
-		return n_doc;
+	public String getCc() {
+		return cc;
 	}
 
-	public void setN_doc(String n_doc) {
-		this.n_doc = n_doc;
+	public void setCc(String cc) {
+		this.cc = cc;
 	}
 
 	public Date getFec_nac() {

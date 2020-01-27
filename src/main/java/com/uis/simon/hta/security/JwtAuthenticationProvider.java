@@ -25,7 +25,7 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 	}
 
 	@Override
-	protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication)
+	protected UserDetails retrieveUser(String cc, UsernamePasswordAuthenticationToken authentication)
 			throws AuthenticationException {
 		JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) authentication;
 		String token = jwtAuthenticationToken.getToken();
@@ -34,7 +34,7 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 			throw new RuntimeException("Jwt es incorrecto");
 		}
 		
-		return new JwtUserDetails(jwtUser.getUsername(), jwtUser.getId(), token);
+		return new JwtUserDetails(jwtUser.getCc(), jwtUser.getId(), token);
 	}
 
 	@Override 

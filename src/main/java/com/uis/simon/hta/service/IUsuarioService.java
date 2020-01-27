@@ -12,15 +12,11 @@ public interface IUsuarioService {
 	
 	public Usuario findUsuario(Usuario usuario);
 	
-	public Usuario findByUsername(String username);
+	public Usuario findByCc(String cc);
 	
 	public Usuario updateUsuario(Usuario usuario);
 
 	public Usuario checkUsuarioLogin(Usuario usuario);
 	
-	public void deleteUsuario(Usuario usuario);
 	
-	public void deleteAllUsuarios();
-	
-	public void deleteUsuario(Long id);
-}
+	}

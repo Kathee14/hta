@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +22,7 @@ import com.uis.simon.hta.model.JwtUser;
 import com.uis.simon.hta.security.JwtGenerator;
 import com.uis.simon.hta.service.IUsuarioService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
@@ -32,7 +33,7 @@ public class UsuarioController {
 	@Autowired
 	private JwtGenerator jwtGenerator;
 
-	@GetMapping("/usuarios")
+	@GetMapping("/listau")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Usuario> getUsuarios(){
 		return usuarioService.findAll();
@@ -49,14 +50,14 @@ public class UsuarioController {
 		}
 
 
-	@PostMapping("/sign_up")
+	@PostMapping("/registrar")
 	public ResponseEntity<?> addUsuario(@RequestBody Usuario usuario){
 		if(usuarioService.findUsuario(usuario)==null) {
 			usuarioService.save(usuario);
 			Usuario userDb = usuarioService.checkUsuarioLogin(usuario);
 			JwtUser jwtUser = new JwtUser();
 			jwtUser.setId(userDb.getId());
-			jwtUser.setUsername(userDb.getUsername());
+			jwtUser.setCc(userDb.getCc());
 			return new ResponseEntity<>((Collections.singletonMap("jwtToken", jwtGenerator.generate(jwtUser))),HttpStatus.CREATED);
 			
 		} else {
@@ -64,10 +65,10 @@ public class UsuarioController {
 		}
 }
 	
-	@PutMapping("/update/{username}")
-	public ResponseEntity<?> updateUsuario(@PathVariable(value="username")String username,@RequestBody Usuario usuario){
+	@PutMapping("/update/{cc}")
+	public ResponseEntity<?> updateUsuario(@PathVariable(value="cc")String cc,@RequestBody Usuario usuario){
 			Usuario usuarioDb = null;
-			usuarioDb = usuarioService.findByUsername(username);
+			usuarioDb = usuarioService.findByCc(cc);
 			if (usuarioDb != null) {
 				usuarioDb.setEmail(usuario.getEmail());
 				usuarioDb.setApellido(usuario.getApellido());
@@ -84,17 +85,12 @@ public class UsuarioController {
 		if(usuarioDb != null) {
 			JwtUser jwtUser = new JwtUser();
 			jwtUser.setId(usuarioDb.getId());
-			jwtUser.setUsername(usuarioDb.getUsername());
+			jwtUser.setCc(usuarioDb.getCc());
 			return new ResponseEntity<>((Collections.singletonMap("jwtToken", jwtGenerator.generate(jwtUser))),HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 	}
 	
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Void> deleteUsuario(@PathVariable(value="id")Long id){
-		usuarioService.deleteUsuario(id);
-		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
 }
 

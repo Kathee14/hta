@@ -6,9 +6,8 @@ import com.uis.simon.hta.entity.Usuario;
 
 public interface IUsuarioDao extends CrudRepository<Usuario, Long> {
 	
-	public Usuario findByUsername(String username);
+	public Usuario findByCc(String cc);
 	
-	public Usuario findByUsernameAndPassword(String email, String password);
-
-
+	public Usuario findByCcAndPassword(String cc, String password);
+	
 }

@@ -30,13 +30,18 @@ public class UsuarioServiceImpl implements IUsuarioService{
 	@Override
 	@Transactional(readOnly=true)
 	public Usuario findUsuario(Usuario usuario) {
-		return (Usuario) usuarioDao.findByUsername(usuario.getUsername());
+		return (Usuario) usuarioDao.findByCc(usuario.getCc());
 	}
 
 	@Override
 	@Transactional(readOnly=true)
-	public Usuario findByUsername(String username) {
-		return usuarioDao.findByUsername(username);
+	public Usuario checkUsuarioLogin(Usuario usuario) {
+		return (Usuario) usuarioDao.findByCcAndPassword(usuario.getCc(), usuario.getPassword());
+	}
+
+	@Override
+	public Usuario findByCc(String cc) {
+		return usuarioDao.findByCc(cc);
 	}
 
 	@Override
@@ -44,27 +49,5 @@ public class UsuarioServiceImpl implements IUsuarioService{
 		return (Usuario)usuarioDao.save(usuario);
 	}
 
-	@Override
-	@Transactional(readOnly=true)
-	public Usuario checkUsuarioLogin(Usuario usuario) {
-		return (Usuario) usuarioDao.findByUsernameAndPassword(usuario.getUsername(), usuario.getPassword());
-	}
-
-	@Override
-	@Transactional
-	public void deleteUsuario(Usuario usuario) {
-		 usuarioDao.deleteById(usuario.getId());
-	}
-
-	@Override
-	@Transactional	
-	public void deleteAllUsuarios() {
-		usuarioDao.deleteAll();
-	}
-	 
-	@Override
-	@Transactional
-	public void deleteUsuario(Long id) {
-		usuarioDao.deleteById(id);
-	}
+	
 }

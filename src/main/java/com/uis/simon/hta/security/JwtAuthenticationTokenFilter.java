@@ -16,7 +16,7 @@ import com.uis.simon.hta.model.JwtAuthenticationToken;
 public class JwtAuthenticationTokenFilter extends AbstractAuthenticationProcessingFilter{
 
 	public JwtAuthenticationTokenFilter() {
-		super("/usuario/usuarios");
+		super("/hta/login");
 		
 	}
 

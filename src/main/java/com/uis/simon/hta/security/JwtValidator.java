@@ -22,7 +22,7 @@ public class JwtValidator {
 					.getBody();
 					
 			jwtUser = new JwtUser();
-			jwtUser.setUsername(body.getSubject());
+			jwtUser.setCc(body.getSubject());
 			jwtUser.setId(Long.parseLong((String)body.get(Constants.USER_ID)));
 				
 			
