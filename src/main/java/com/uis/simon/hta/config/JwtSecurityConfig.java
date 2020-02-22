@@ -10,6 +10,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
 import com.uis.simon.hta.security.JwtAuthenticationEntryPoint;
@@ -19,7 +22,7 @@ import com.uis.simon.hta.security.JwtSuccessHandler;
 
 @EnableWebSecurity
 @Component
-public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
+public class JwtSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	private JwtAuthenticationProvider authenticationProvider;
@@ -30,6 +33,11 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public AuthenticationManager authenticationManager() {
 		return new ProviderManager(Collections.singletonList(authenticationProvider));
+	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 	@Bean
@@ -49,5 +57,10 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
 				.exceptionHandling().authenticationEntryPoint(entryPoint)
 				.and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		
+		http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+		http.headers().cacheControl();
+		
 	}
+
 }

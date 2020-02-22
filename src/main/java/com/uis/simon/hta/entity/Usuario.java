@@ -58,6 +58,9 @@ public class Usuario implements Serializable {
 	@Column(name="celular")
 	private Long celular;
 	
+	@Column(name="role")
+	private String role = "Paciente";
+	
 	@Column(name= "create_at")
 	@Temporal(TemporalType.DATE)
 	private Date createAt;
@@ -178,8 +181,16 @@ public class Usuario implements Serializable {
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	
+	
 	
 }
-
-
-

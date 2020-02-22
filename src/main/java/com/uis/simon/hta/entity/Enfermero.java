@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
@@ -13,8 +15,9 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="enfermero")
 public class Enfermero {
-	
+
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name="nombre")
@@ -26,7 +29,11 @@ public class Enfermero {
 	@Column(name="cc", unique=true)
 	private String cc;
 	
+	@Column(name="password")
 	private String password;
+	
+	@Column(name="role")
+	private String role = "Enfermero";
 	
 	@Column(name= "create_at")
 	@Temporal(TemporalType.DATE)
@@ -69,14 +76,6 @@ public class Enfermero {
 		this.cc = cc;
 	}
 
-	public Date getCreateAt() {
-		return createAt;
-	}
-
-	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -85,4 +84,20 @@ public class Enfermero {
 		this.password = password;
 	}
 
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public Date getCreateAt() {
+		return createAt;
+	}
+
+	public void setCreateAt(Date createAt) {
+		this.createAt = createAt;
+	}
+	
 }

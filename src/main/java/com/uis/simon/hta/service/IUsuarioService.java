@@ -6,7 +6,7 @@ import com.uis.simon.hta.entity.Usuario;
 
 public interface IUsuarioService {
 	
-	public List<Usuario> findAll();
+public List<Usuario> findAll();
 	
 	public void save(Usuario usuario);
 	
@@ -17,6 +17,8 @@ public interface IUsuarioService {
 	public Usuario updateUsuario(Usuario usuario);
 
 	public Usuario checkUsuarioLogin(Usuario usuario);
+	
+	public Usuario findByRole(String role);
 	
 	
 	}

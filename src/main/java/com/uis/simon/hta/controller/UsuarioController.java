@@ -56,8 +56,8 @@ public class UsuarioController {
 			usuarioService.save(usuario);
 			Usuario userDb = usuarioService.checkUsuarioLogin(usuario);
 			JwtUser jwtUser = new JwtUser();
-			jwtUser.setId(userDb.getId());
 			jwtUser.setCc(userDb.getCc());
+			jwtUser.setPassword(userDb.getPassword());
 			return new ResponseEntity<>((Collections.singletonMap("jwtToken", jwtGenerator.generate(jwtUser))),HttpStatus.CREATED);
 			
 		} else {
@@ -84,8 +84,8 @@ public class UsuarioController {
 		Usuario usuarioDb = usuarioService.checkUsuarioLogin(usuario);
 		if(usuarioDb != null) {
 			JwtUser jwtUser = new JwtUser();
-			jwtUser.setId(usuarioDb.getId());
 			jwtUser.setCc(usuarioDb.getCc());
+			jwtUser.setPassword(usuarioDb.getPassword());
 			return new ResponseEntity<>((Collections.singletonMap("jwtToken", jwtGenerator.generate(jwtUser))),HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
@@ -93,4 +93,5 @@ public class UsuarioController {
 	}
 	
 }
-
+    
+    

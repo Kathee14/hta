@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.uis.simon.hta.entity.Enfermero;
 
-	public interface IEnfermeroService {
+public interface IEnfermeroService {
 	
 	public List<Enfermero> findAll();
 	
@@ -13,5 +13,6 @@ import com.uis.simon.hta.entity.Enfermero;
 	public Enfermero findByCc(String cc);
 	
 	public Enfermero checkUsuarioLogin(Enfermero enfermero);
-
+	
+	
 }

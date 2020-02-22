@@ -10,4 +10,7 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Long> {
 	
 	public Usuario findByCcAndPassword(String cc, String password);
 	
+	public Usuario findByRole(String role);
+	
+	
 }

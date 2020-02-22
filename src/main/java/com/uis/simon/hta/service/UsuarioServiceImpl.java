@@ -49,5 +49,9 @@ public class UsuarioServiceImpl implements IUsuarioService{
 		return (Usuario)usuarioDao.save(usuario);
 	}
 
+	@Override
+	public Usuario findByRole(String role) {
+		return usuarioDao.findByRole(role);
+	}
 	
 }

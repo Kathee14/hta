@@ -2,7 +2,7 @@ package com.uis.simon.hta.security;
 
 import org.springframework.stereotype.Component;
 
-import com.uis.simon.hta.constant.Constants;
+import com.uis.simon.hta.contants.Contants;
 import com.uis.simon.hta.model.JwtUser;
 
 import io.jsonwebtoken.Claims;
@@ -17,18 +17,18 @@ public class JwtValidator {
 		try {
 			
 			Claims body = Jwts.parser()
-					.setSigningKey(Constants.YOUR_SECRET)
+					.setSigningKey(Contants.YOUR_SECRET)
 					.parseClaimsJws(token)
 					.getBody();
 					
 			jwtUser = new JwtUser();
 			jwtUser.setCc(body.getSubject());
-			jwtUser.setId(Long.parseLong((String)body.get(Constants.USER_ID)));
-				
+			jwtUser.setId(Long.parseLong((String)body.get(Contants.USER_ID)));
+			jwtUser.setRole((String) body.get(Contants.ROLE));	
 			
 		} catch(Exception e) {
 			System.out.println(e);
-		}
+		}  
 		
 		return jwtUser;
 	}
