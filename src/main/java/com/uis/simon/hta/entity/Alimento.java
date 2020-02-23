@@ -1,10 +1,12 @@
 package com.uis.simon.hta.entity;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import javax.persistence.Table;
 
 @Entity
@@ -22,7 +24,8 @@ public class Alimento {
 	private int calorias;
 	
 	@Column(name="tipo_alimento")
-	private String tipo_alimento;
+	private String tipo_alimento;	
+	
 	public Long getId() {
 		return id;
 	}
@@ -47,7 +50,6 @@ public class Alimento {
 	public void setTipo_alimento(String tipo_alimento) {
 		this.tipo_alimento = tipo_alimento;
 	}
-	
-	
 
+	
 }

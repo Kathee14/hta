@@ -1,12 +1,17 @@
 package com.uis.simon.hta.entity;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -32,8 +37,9 @@ public class Enfermero {
 	@Column(name="password")
 	private String password;
 	
-	@Column(name="role")
-	private String role = "Enfermero";
+	@ManyToMany
+    @JoinTable(name = "visita", joinColumns = @JoinColumn(name = "enfermero_id"), inverseJoinColumns = @JoinColumn(name = "paciente_id"))
+    private Set<Paciente> paciente = new HashSet<>();
 	
 	@Column(name= "create_at")
 	@Temporal(TemporalType.DATE)
@@ -82,14 +88,6 @@ public class Enfermero {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
 	}
 
 	public Date getCreateAt() {

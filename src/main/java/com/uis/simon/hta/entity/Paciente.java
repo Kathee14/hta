@@ -1,4 +1,4 @@
-package com.uis.simon.hta.entity;
+ package com.uis.simon.hta.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,12 +10,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 
 @Entity
-@Table(name="usuario")
-public class Usuario implements Serializable {
+@Table(name="paciente")
+public class Paciente implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 		
@@ -23,44 +26,55 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotBlank
 	@Column(name="nombre")
 	private String nombre;
 	
+	@NotBlank
 	@Column(name="apellido")
 	private String apellido;
 	
+	@NotBlank
 	@Column(name="tipo_doc")
 	private String tipo_doc;
 	
+	@NotBlank
 	@Column(name="cc", unique=true)
 	private String cc;
 	
+	@NotNull
 	@Column(name="fec_nac")
 	private Date fec_nac;
 	
+	@NotBlank
 	@Column(name="ciudad")
 	private String ciudad;
 	
+	@NotBlank
 	@Column(name="direccion")
 	private String direccion;
 	
+	@NotBlank
 	@Column(name="barrio")
 	private String barrio;
 	
+	@NotBlank
+	@Column(name="password")
 	private String password;
 	
+	@NotBlank
 	@Column(name="sexo")
 	private String sexo;
 	
+	@NotBlank
+	@Email
 	@Column(length=60)
 	private String email;
 	
+	@NotNull
 	@Column(name="celular")
 	private Long celular;
-	
-	@Column(name="role")
-	private String role = "Paciente";
-	
+
 	@Column(name= "create_at")
 	@Temporal(TemporalType.DATE)
 	private Date createAt;
@@ -69,6 +83,28 @@ public class Usuario implements Serializable {
 	public void prePersist() {
 		createAt = new Date();
 	}
+	
+	
+	public Paciente() {}
+
+	public Paciente(@NotBlank String nombre, @NotBlank String apellido, @NotBlank String tipo_doc, @NotBlank String cc,
+			@NotNull Date fec_nac, @NotBlank String ciudad, @NotBlank String direccion, @NotBlank String barrio,
+			@NotBlank String password, @NotBlank String sexo, @NotBlank @Email String email, @NotNull Long celular) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.tipo_doc = tipo_doc;
+		this.cc = cc;
+		this.fec_nac = fec_nac;
+		this.ciudad = ciudad;
+		this.direccion = direccion;
+		this.barrio = barrio;
+		this.password = password;
+		this.sexo = sexo;
+		this.email = email;
+		this.celular = celular;
+	}
+
 
 	public Long getId() {
 		return id;
@@ -181,16 +217,6 @@ public class Usuario implements Serializable {
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
 	
-	
-	
+
 }

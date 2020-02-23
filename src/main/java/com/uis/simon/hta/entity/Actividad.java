@@ -44,5 +44,4 @@ public class Actividad {
 	public void setMets(int mets) {
 		this.mets = mets;
 	}
-
 }
